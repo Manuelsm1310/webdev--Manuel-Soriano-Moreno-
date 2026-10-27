@@ -37,10 +37,24 @@ node mcp-server/check.mjs -- npm run --silent mcp
 It prints one line per check. Fix the failures yourself: the agent may explain a message or review your handler, but it must not write the protocol code for you.
 
 ## How to start it
-<!-- The exact command, so the lecturer can run your server too. -->
+npm run --silent mcp
 
 ## Session transcript
 <!-- Paste one full session: initialize, the reply, tools/list, one good tools/call, one that fails. -->
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"me","version":"1.0.0"}}}
+got: {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"me","version":"1.0.0"}}}
+{"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-11-25","capabilities":{"tools":{}},"serverInfo":{"name":"lectures","version":"0.1.0"}}}
+{"jsonrpc":"2.0","method":"notifications/initialized"}
+got: {"jsonrpc":"2.0","method":"notifications/initialized"}
+{"jsonrpc":"2.0","id":2,"method":"tools/list"}
+got: {"jsonrpc":"2.0","id":2,"method":"tools/list"}
+{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"find_lecture","description":"Return the title and topics of one course lecture by its number, 1 to 12. Use it when asked what a specific lecture covers.","inputSchema":{"type":"object","properties":{"number":{"type":"integer","description":"Lecture number, from 1 to 12"}},"required":["number"]}},{"name":"search_lectures","description":"Search course lectures by keyword in their title or topics. Use it when asked which lectures cover a specific subject or technology.","inputSchema":{"type":"object","properties":{"keyword":{"type":"string","description":"Word or topic to search for, e.g. HTTP or agents"}},"required":["keyword"]}}]}}
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"find_lecture","arguments":{"number":5}}}
+got: {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"find_lecture","arguments":{"number":5}}}
+{"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"Lecture 5: What the agent built, part 1. Topics: HTTP, REST vs GraphQL, data modeling, ORM, layers"}],"isError":false}}
+{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"find_lecture","arguments":{"number":99}}}
+got: {"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"find_lecture","arguments":{"number":99}}}
+{"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"There is no lecture 99. The course has lectures 1 to 12."}],"isError":true}}
 
 ## The description experiment
-<!-- Three sentences: what you changed in the description, whether the model chose the tool differently, and why you think so. -->
+I changed the description of `find_lecture` to a vague technical sentence ("Retrieve an item from the local JSON array using an integer index parameter") that omitted any mention of course lectures, titles, or topics. When I asked "What does lecture 7 cover?", the model hesitated and preferred `search_lectures` instead because only that tool's description mentioned course lectures. This happens because the LLM cannot inspect the server's code and relies entirely on the semantic match between the user's question and the tool's description to choose the right tool.
