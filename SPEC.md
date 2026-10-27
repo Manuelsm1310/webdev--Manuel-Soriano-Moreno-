@@ -1,4 +1,4 @@
-# <Project name>
+# FIP Project
 
 <!-- Exercise 2. Write the non-goals first. Every acceptance criterion must be checkable in under a minute.
      Keep these headings exactly as they are: the self-checks look for them by name.
