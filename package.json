@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "jest",
+    "test": "node --test",
     "start": "node src/index.js",
     "mcp": "node mcp-server/server.js"
   },
