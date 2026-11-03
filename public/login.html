@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Study Groups</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Sign In</h1>
+    <div id="error-container"></div>
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Sign In</button>
+    </form>
+    <hr>
+    <a href="/auth/google" class="google-btn">Sign in with Google</a>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get('error');
+        if (error) {
+            const container = document.getElementById('error-container');
+            container.textContent = decodeURIComponent(error);
+            container.style.color = 'red';
+            container.style.marginBottom = '1rem';
+        }
+    </script>
+</body>
+</html>

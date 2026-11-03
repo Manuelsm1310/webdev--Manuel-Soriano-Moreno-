@@ -7,3 +7,11 @@
 - **Checkpoints used:** Ran `node mcp-server/check.mjs -- node mcp-server/server.js` after each step and `node mcp-server/check.mjs -- npm run --silent mcp` at the end (12/12 checks passed).
 - **What went wrong:** Fixed initial `MODULE_NOT_FOUND` path issue, resolved HTTP 503 model high demand in Gemini CLI by switching models with `/model`, and ran `npm init -y` and `npm pkg set` as separate commands.
 - **What I changed by hand:** Wrote `mcp-server/server.js`, added the custom `search_lectures` tool, configured the `mcp` script in `package.json`, and documented the session and experiment in `mcp-server/README.md`.
+
+## 2026-11-03
+Implemented Slice 1: Sign-in and Events List.
+- Set up SQLite database with users and events tables.
+- Implemented three-layer architecture: routes, services, data.
+- Added Passport.js authentication (Local Strategy and Google OAuth placeholders).
+- Created Login and Events List screens with plain HTML/CSS.
+- Verified AC-9, AC-10, and AC-11 with Jest tests.
